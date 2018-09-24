@@ -59,5 +59,39 @@ namespace Hangman
                 }
             }
         }
+
+        static void DrawDude(int incorrectGuessCount)
+        {
+                string dude =
+"    0000000000000\n" +
+"    0           0\n" +
+"    0           1\n" +
+"    0          1 1\n" +
+"    0           1\n" +
+"    0          324\n" +
+"    0         3 2 4\n" +
+"    0        3  2  4\n" +
+"    0          5 6\n" +
+"    0         5   6\n" +
+"    0        5     6\n" +
+"    0       5       6\n" +
+"    0\n" +
+"    0\n" +
+"    0";            
+            foreach(char c in dude)
+                {
+                    int.TryParse(c.ToString(), out int dudeNumber);
+
+                    if (dudeNumber <= incorrectGuessCount)
+                    {
+                        Console.Write(c);
+                    }
+                    else
+                    {
+                        Console.Write(" ");
+                    }
+                }
+        }
+
     }
 }
