@@ -13,37 +13,51 @@ namespace Hangman
 
             Console.WriteLine("Let's play Hangman!");
 
-            while(incorrectGuesses.Count < 6)
+            DrawUnderscores(secretWord, correctGuesses);
+
+            while (incorrectGuesses.Count < 6)
             {
                 Console.WriteLine("Please guess a letter:");
                 string strGuess = Console.ReadLine();
 
+                Console.Clear();
+
                 char guess = strGuess[0];
 
-                if (secretWord.Contains(guess.ToString()))
+                if (secretWord.Contains(guess.ToString()) && !correctGuesses.Contains(guess))
                 {
                     correctGuesses.Add(guess);
                 }
-                else
+                else if (secretWord.Contains(guess.ToString()) && !incorrectGuesses.Contains(guess))
                 {
                     incorrectGuesses.Add(guess);
                 }
 
-                foreach (char letter in secretWord)
-                {
-                    if (correctGuesses.Contains(letter))
-                    {
-                        Console.Write(letter + " ");
-                    }
-                    else
-                    {
-                        Console.Write("_ ");
-                    }
-                }
-                Console.WriteLine();
-            }
-            
+                DrawUnderscores(secretWord, correctGuesses);
 
+                Console.Write("Incorrect Guesses: ");
+                foreach (char letter in incorrectGuesses)
+                {
+                    Console.Write(letter + " ");
+                }
+
+            }
+
+        }
+
+        static void DrawUnderscores(string secretWord, List<char> correctGuesses)
+        {
+            foreach (char letter in secretWord)
+            {
+                if (correctGuesses.Contains(letter))
+                {
+                    Console.Write(letter + " ");
+                }
+                else
+                {
+                    Console.Write("_ ");
+                }
+            }
         }
     }
 }
