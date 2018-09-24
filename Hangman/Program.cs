@@ -28,6 +28,19 @@ namespace Hangman
                 {
                     incorrectGuesses.Add(guess);
                 }
+
+                foreach (char letter in secretWord)
+                {
+                    if (correctGuesses.Contains(letter))
+                    {
+                        Console.Write(letter + " ");
+                    }
+                    else
+                    {
+                        Console.Write("_ ");
+                    }
+                }
+                Console.WriteLine();
             }
             
 
