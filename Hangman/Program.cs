@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Linq;
 
 namespace Hangman
 {
@@ -7,13 +9,18 @@ namespace Hangman
     {
         static void Main(string[] args)
         {
-            string secretWord = "password";
+            string wikiData = GetWikipediaData();
+            List<string> words = GetWords(wikiData);
+
+
+            string secretWord = GetRandomWord(words);
             List<char> incorrectGuesses = new List<char>();
             List<char> correctGuesses = new List<char>();
 
             Console.WriteLine("Let's play Hangman!");
 
             DrawUnderscores(secretWord, correctGuesses);
+            DrawDude(incorrectGuesses.Count);
 
             while (incorrectGuesses.Count < 6)
             {
@@ -91,6 +98,27 @@ namespace Hangman
                         Console.Write(" ");
                     }
                 }
+        }
+
+        static string GetWikipediaData()
+        {
+            WebClient webClient = new WebClient();
+            string str = webClient.DownloadString("https://en.wikipedia.org/wiki/United States");
+            return str;
+        }
+
+        static List<string> GetWords(string htmlString)
+        {
+            string[] arr = htmlString.Split(' ');
+            List<string> words = arr.Where(x => x.Where(y => !char.IsLetter(y)).Count() == 0).ToList();
+            return words.Distinct().ToList();
+        }
+
+        static string GetRandomWord(List<string> words)
+        {
+            Random rnd = new Random();
+            int randomNumber = rnd.Next(words.Count);
+            return words[randomNumber];
         }
 
     }
