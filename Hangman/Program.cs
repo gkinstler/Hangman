@@ -35,19 +35,20 @@ namespace Hangman
                 {
                     correctGuesses.Add(guess);
                 }
-                else if (secretWord.Contains(guess.ToString()) && !incorrectGuesses.Contains(guess))
+                else if (!secretWord.Contains(guess.ToString()) && !incorrectGuesses.Contains(guess))
                 {
                     incorrectGuesses.Add(guess);
                 }
 
                 DrawUnderscores(secretWord, correctGuesses);
+                DrawDude(incorrectGuesses.Count);
 
                 Console.Write("Incorrect Guesses: ");
                 foreach (char letter in incorrectGuesses)
                 {
                     Console.Write(letter + " ");
                 }
-
+                Console.WriteLine();
             }
 
         }
@@ -65,6 +66,7 @@ namespace Hangman
                     Console.Write("_ ");
                 }
             }
+            Console.WriteLine();
         }
 
         static void DrawDude(int incorrectGuessCount)
@@ -84,8 +86,9 @@ namespace Hangman
 "    0       5       6\n" +
 "    0\n" +
 "    0\n" +
-"    0";            
-            foreach(char c in dude)
+" 0000000\n";
+
+            foreach (char c in dude)
                 {
                     int.TryParse(c.ToString(), out int dudeNumber);
 
